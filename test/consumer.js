@@ -1,7 +1,16 @@
 
+var IP = process.env.ZOOKEEPER_IP || 'localhost';
+var PORT = process.env.ZOOKEEPER_PORT || '2181';
+
+var connectionString = IP + ':' + PORT + '/';
+
+console.log('zookeeper ip is:' + IP);
+console.log('zookeeper port is:' + PORT);
+console.log('connectionString: ' + connectionString);
+
 var kafka = require('kafka-node'),
     HighLevelConsumer = kafka.HighLevelConsumer,
-    client = new kafka.Client(),
+    client = new kafka.Client(connectionString),
     consumer = new HighLevelConsumer(
         client,
         [
