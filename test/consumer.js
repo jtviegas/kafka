@@ -14,7 +14,7 @@ var kafka = require('kafka-node'),
     consumer = new HighLevelConsumer(
         client,
         [
-            { topic: 'topic1' }, { topic: 'topic2' }
+            { topic: 'twitter' }
         ],
         {
             encoding: 'utf8'

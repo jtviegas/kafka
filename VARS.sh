@@ -8,4 +8,4 @@ REGISTRY=registry.ng.bluemix.net/mynodeappbue
 SRC_IMG=spotify/kafka
 BLUEMIX_IMG=$REGISTRY/$IMG
 BLUEMIX_CONTAINER_MEMORY=128
-IP=169.44.6.100
+IP=169.44.6.146
