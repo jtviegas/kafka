@@ -13,10 +13,9 @@ then
 	npm install kafka-node	
 fi 
 
+cd $_pwd
 #node producer.js &
-node consumer.js &
+node test/consumer.js
 #node test/producer.js &
 
-cd $_pwd
-
-echo "...don't forget to kill node processes on the way out: killall node"
+#echo "...don't forget to kill node processes on the way out: killall node"
