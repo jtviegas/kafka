@@ -13,7 +13,7 @@ then
 	npm install kafka-node	
 fi 
 
-node producer.js &
+#node producer.js &
 node consumer.js &
 #node test/producer.js &
 
