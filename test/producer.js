@@ -13,8 +13,8 @@ var kafka = require('kafka-node'),
     client = new kafka.Client(connectionString),
     producer = new Producer(client),
     km = new KeyedMessage('key', 'message'),
-    payloads = [  { topic: 'topic1', messages: 'hi', partition: 0 },
-        { topic: 'topic2', messages: ['hello', 'world', km] }
+    payloads = [  { topic: '1', messages: 'hi', partition: 0 },
+        { topic: '1', messages: ['hello', 'world', km] }
     ];
 
 producer.on('ready', function () {

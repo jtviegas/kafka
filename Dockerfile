@@ -1,27 +1,35 @@
-# Kafka and Zookeeper
-
-FROM java:openjdk-8-jre
+FROM openjdk:8u111-jdk
 
 ENV DEBIAN_FRONTEND noninteractive
+
+ENV ROOT /
+ENV BUILD_DIR /tmp
 ENV SCALA_VERSION 2.11
-ENV KAFKA_VERSION 0.8.2.1
-ENV KAFKA_HOME /opt/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION"
+ENV KFK_VERSION 0.10.1.0
+ENV KFK_BUNDLE kafka_$SCALA_VERSION-$KFK_VERSION.tgz
+ENV KFK_BUNDLE_DIR kafka_$SCALA_VERSION-$KFK_VERSION
+ENV KFK_DIR /opt/kafka
+ENV DWNL_FOLDER_LINK http://www-us.apache.org/dist/kafka/$KFK_VERSION
+ENV START_SCRIPT bin/kafka-server-start.sh
+ENV LOG_DIR /var/log/kafka
+ENV CONF kafka.properties
+ENV PORT 9092
 
-# Install Kafka, Zookeeper and other needed things
+RUN mkdir -p $LOG_DIR
+
+WORKDIR $BUILD_DIR
+# Install Kafka and other needed things
 RUN apt-get update && \
-    apt-get install -y zookeeper wget supervisor dnsutils && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-get clean && \
-    wget -q http://apache.mirrors.spacedump.net/kafka/"$KAFKA_VERSION"/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -O /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz && \
-    tar xfz /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -C /opt && \
-    rm /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz
+    apt-get install -y wget && \ 
+    apt-get clean && \ 
+    wget --no-cookies --no-check-certificate $DWNL_FOLDER_LINK/$KFK_BUNDLE -O $KFK_BUNDLE && \ 
+    tar xzpvf $KFK_BUNDLE && \ 
+    rm $KFK_BUNDLE && \ 
+    mv $KFK_BUNDLE_DIR $KFK_DIR
 
-ADD scripts/start-kafka.sh /usr/bin/start-kafka.sh
+ADD $CONF $KFK_DIR
 
-# Supervisor config
-ADD supervisor/kafka.conf supervisor/zookeeper.conf /etc/supervisor/conf.d/
-
-# 2181 is zookeeper, 9092 is kafka
-EXPOSE 2181 9092
-
-CMD ["supervisord", "-n"]
+EXPOSE $PORT
+WORKDIR $KFK_DIR
+ENTRYPOINT ["/opt/kafka/bin/kafka-server-start.sh"] 
+CMD ["/opt/kafka/kafka.properties"]
