@@ -2,11 +2,11 @@
 IMAGE=kaki-kafka
 HOST=kafka
 IMAGE_VERSION=0.0.1
-CONTAINER=$IMAGE
+CONTAINER=$HOST
 KFK_PORT=9092
 
 ZK_HOST=zookeeper
-ZK_CONTAINER=kaki-zookeeper
+ZK_CONTAINER=zookeeper
 
 BLUEMIX_CONTAINER_MEMORY=128
 REGISTRY=registry.ng.bluemix.net/mynodeappbue
