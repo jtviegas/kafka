@@ -1,4 +1,4 @@
-var IP = process.env.ZOOKEEPER_IP || 'localhost';
+var IP = process.env.ZOOKEEPER_IP || 'zookeeper';
 var PORT = process.env.ZOOKEEPER_PORT || '2181';
 
 var connectionString = IP + ':' + PORT + '/';
@@ -13,14 +13,18 @@ var kafka = require('kafka-node'),
     client = new kafka.Client(connectionString),
     producer = new Producer(client),
     km = new KeyedMessage('key', 'message'),
-    payloads = [  { topic: '1', messages: 'hi', partition: 0 },
-        { topic: '1', messages: ['hello', 'world', km] }
+    payloads = [
+        { topic: 'topic1', messages: 'hi', partition: 0 },
+        { topic: 'topic2', messages: ['hello', 'world', km] }
     ];
 
 producer.on('ready', function () {
 	console.log('producing messages...');
     producer.send(payloads, function (err, data) {
-        console.log(data);
+        if(err)
+            console.log(err);
+        else
+            console.log(data);
     });
 });
 

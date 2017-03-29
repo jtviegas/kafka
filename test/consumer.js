@@ -13,7 +13,7 @@ var kafka = require('kafka-node'),
     consumer = new HighLevelConsumer(
         client,
         [
-            { topic: '1' }
+            { topic: 'producer_ticker' }
         ],
         {
             encoding: 'utf8'
@@ -24,3 +24,9 @@ consumer.on('message', function (message) {
     console.log('consuming messages...');
     console.log(message);
 });
+
+consumer.on('error', 
+    function (err) {
+        console.log(err);
+    }
+);

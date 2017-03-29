@@ -10,7 +10,10 @@ IMAGE_ID=`docker images | grep -E "^$IMAGE*" | awk -e '{print $3}'`
 docker tag $IMAGE_ID $BLUEMIX_IMG
 docker push $BLUEMIX_IMG
 
-cf ic run --name $HOST --name $CONTAINER --link $ZK_CONTAINER:$ZK_HOST -p $KFK_PORT -m $BLUEMIX_CONTAINER_MEMORY $BLUEMIX_IMG
+cf ic stop $CONTAINER
+cf ic rm $CONTAINER
 
-sleep 12
-cf ic logs $CONTAINER
+sleep 24
+cf ic run -d --name $CONTAINER -p $KFK_PORT --link $ZK_CONTAINER:$ZK_HOST -m $BLUEMIX_CONTAINER_MEMORY $BLUEMIX_IMG
+sleep 36
+cf ic logs -f $CONTAINER
