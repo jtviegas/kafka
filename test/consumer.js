@@ -1,3 +1,4 @@
+var TOPIC = process.env.TOPIC || 'producer_ticker';
 var IP = process.env.ZOOKEEPER_IP || 'localhost';
 var PORT = process.env.ZOOKEEPER_PORT || '2181';
 
@@ -13,7 +14,7 @@ var kafka = require('kafka-node'),
     consumer = new HighLevelConsumer(
         client,
         [
-            { topic: 'producer_ticker' }
+            { topic: TOPIC }
         ],
         {
             encoding: 'utf8'

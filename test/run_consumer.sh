@@ -1,7 +1,11 @@
 #!/bin/sh
 
-. ./VARS.sh
+test_folder=$(dirname $(readlink -f $0))
+base_folder=$(dirname $test_folder)
 
+. $test_folder/VARS.sh
+
+export TOPIC
 export ZOOKEEPER_IP
 export ZOOKEEPER_PORT
 
