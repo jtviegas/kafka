@@ -8,5 +8,5 @@ base_folder=$(dirname $scripts_folder)
 docker stop $CONTAINER
 docker rm $CONTAINER
 
-docker run -d -h $HOST --name $CONTAINER  -p $KFK_PORT:$KFK_PORT --link $ZK_CONTAINER:$ZK_HOST $DOCKER_HUB_IMG:$IMAGE_VERSION
+docker run -d -h $HOST --name $CONTAINER  --link $ZK_CONTAINER:$ZK_HOST $DOCKER_HUB_IMG:$IMAGE_VERSION
 #docker logs -f $CONTAINER

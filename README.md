@@ -8,25 +8,17 @@
 
 ### usage:
 
-- edit VARS.sh accordingly:
-  ```
-  NAME=kafka
-  IMAGE=kaki-$NAME
-  IMAGE_VERSION=latest
-  CONTAINER=$NAME
-  HOST=$CONTAINER
+- edit VARS.sh accordingly;
+- ``` scripts/build.sh ``` - build docker image and push it to dockerHub (/kakicode/kafka) ; 
+- ``` scripts/run.sh ``` - run on local docker engine ;
 
-  KFK_PORT=9092
+### to test the broker
 
-  ZK_HOST=zookeeper
-  ZK_CONTAINER=zookeeper
+- attach to the kafka container: ``` docker exec -it kafka /bin/bash ``` ;
+- send a message: ``` bin/kafka-console-producer.sh --broker-list kafka:9092 --topic test ``` ;
+- consume the message: ``` /opt/kafka# bin/kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic test --from-beginning ``` ;
+- see [kafka examples](https://kafka.apache.org/quickstart)
 
-  BLUEMIX_CONTAINER_MEMORY=128
-  REGISTRY=registry.ng.bluemix.net/mynodeappbue
-  BLUEMIX_IMG=$REGISTRY/$IMAGE
-  DOCKER_HUB_IMG=kakicode/$NAME
-  ```
-- scripts/buildAndPushImage.sh - build docker image and push it to dockerHub (/kakicode/kafka) and private bluemix registry (registry.ng.bluemix.net/mynodeappbue/kafka)
-- scripts/runLocal.sh - run on local docker engine
-- scripts/runOnBluemix.sh - run on bluemix
-- scripts/attachOnBluemix.sh - attach to bluemix bash process
+
+
+
