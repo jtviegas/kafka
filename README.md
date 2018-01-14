@@ -15,9 +15,9 @@
 ### to test the broker
 
 - attach to the kafka container: ``` docker exec -it kafka /bin/bash ``` ;
-- send a message: ``` bin/kafka-console-producer.sh --broker-list kafka:9092 --topic test ``` ;
+- send a message: ``` /opt/kafka# bin/kafka-console-producer.sh --broker-list kafka:9092 --topic test ``` ;
 - consume the message: ``` /opt/kafka# bin/kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic test --from-beginning ``` ;
-- see [kafka examples](https://kafka.apache.org/quickstart)
+- see [kafka examples](https://kafka.apache.org/quickstart) ;
 
 
 
